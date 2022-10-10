@@ -39,7 +39,7 @@ void Calculator::BasicOp(double x, double y, char sign){
     }
 
     // Create a string which hold the result
-    string stringResult = to_string(x) + " " + sign + to_string(y) 
+    string stringResult = to_string(x) + " " + sign + to_string(y) + " "
                                 + " = " + to_string(result);
 
     // Add the string to the stack
@@ -53,16 +53,22 @@ void Calculator::BasicOp(double x, double y, char sign){
  * @brief 
  * 
  * @param x 
+ * @param y 
  */
-void Calculator::powerOfTwo(const double& x){
-    cout << x << "^2" << " = " << pow(x,2);
+void Calculator::exponential(const double& x, const double& y){
+    double result = pow(x,y);
+
+    string stringResult = to_string(x) + " ^ " + to_string(y) + " = " + to_string(result); 
+    inputs.push(stringResult);
+    
+    cout << x << "^" << y << " = " << result << endl;
 }
 
 /**
  * @brief 
  * 
  */
-void Calculator::printHistory(){
+void Calculator::PrintHistory(){
     if(inputs.empty()){
         return;
     }
@@ -71,7 +77,7 @@ void Calculator::printHistory(){
 
     inputs.pop();
 
-    printHistory();
+    PrintHistory();
 
     cout << input << endl;
 

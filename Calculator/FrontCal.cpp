@@ -33,6 +33,30 @@ int menu(){
     return option;
 }
 
+void stringParsing(string& input, double& num1, double& num2){
+
+    // Remove all the spaces between the character
+    input.erase(remove_if(input.begin(), input.end(), isspace), input.end());
+
+    char* charArr = &input[0];
+
+    try
+    {
+        string x;
+        x.append(1, charArr[0]);
+        num1 = std::stod(x);
+
+        string y;
+        y.append(1, charArr[2]);
+        num2 = std::stod(y);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Invalid Input" << '\n';
+    }
+
+}
+
 /**
  * @brief 
  * 
@@ -46,41 +70,66 @@ void option1(Calculator& cal){
     string input = "";
     getline(cin, input);
 
-    // Remove all the spaces between the character
-    input.erase(remove_if(input.begin(), input.end(), isspace), input.end());
+    double num1 = 0;
+    double num2 = 0;
 
-    char* charArr = &input[0];
+    stringParsing(input, num1, num2);
 
-    try
-    {
-        string x;
-        x.append(1, charArr[0]);
-        double num1 = std::stod(x);
+    cal.BasicOp(num1, num2, input[1]);
 
-        string y;
-        y.append(1, charArr[2]);
-        double num2 = std::stod(y);
-
-        cal.BasicOp(num1, num2, charArr[1]);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << "Invalid Input" << '\n';
-    }
-    
     system("Pause");
+}
+
+/**
+ * @brief 
+ * 
+ * @param cal 
+ */
+void option2(Calculator& cal){
+    cout << "\n ############ More Advanced Math ############" << endl;
+    cout << "1. sin(x), cos(x), tan(x), cotan(x)" << endl;
+    cout << "2. x^y (x to the power of y)" << endl;
+
+    int option;
+    cin >> option;
+
+    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+    string input = "";
+    double x, y;
+
+    switch(option){
+        case 1:
+            break;
+        case 2:
+            cout << "Enter the operation: ";
+            getline(cin, input);
+            stringParsing(input, x, y);
+
+            if(input.length() < 3 || input[1] != '^'){
+                cout << "Invalid Format" << endl;
+            }
+
+            cal.exponential(x,y);
+            break;
+    }
+
+    system("Pause");
+
 }
 
 
 /**
  * @brief 
  * 
+ * @param cal 
  */
 void option3(Calculator& cal){
     cout << "\n ############ History ############" << endl;
-    cal.printHistory();
+    cal.PrintHistory();
     system("Pause");
 }
+
 
 int main(int argc, char** argv){
     int option = 0;   
@@ -95,6 +144,7 @@ int main(int argc, char** argv){
                 option1(calculator);
                 break;
             case 2:
+                option2(calculator);
                 break;
             case 3:
                 option3(calculator);
