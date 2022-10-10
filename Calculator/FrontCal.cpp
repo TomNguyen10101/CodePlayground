@@ -25,7 +25,7 @@ int menu(){
     cout << "3. History" << endl;
     cout << "4. Exit" << endl; 
 
-    cout << "Choose your option (1-5): ";
+    cout << "Choose your option (1-4): ";
     
     int option;
     cin >> option;
@@ -33,6 +33,11 @@ int menu(){
     return option;
 }
 
+/**
+ * @brief 
+ * 
+ * @param cal 
+ */
 void option1(Calculator& cal){
     //Introduction line
     cout << "\n ############ Basic Operators ############" << endl;
@@ -46,27 +51,44 @@ void option1(Calculator& cal){
 
     char* charArr = &input[0];
 
-    string x;
-    x.append(1, charArr[0]);
-    double num1 = std::stod(x);
+    try
+    {
+        string x;
+        x.append(1, charArr[0]);
+        double num1 = std::stod(x);
 
-    string y;
-    y.append(1, charArr[2]);
-    double num2 = std::stod(y);
+        string y;
+        y.append(1, charArr[2]);
+        double num2 = std::stod(y);
 
-    cal.BasicOp(num1, num2, charArr[1]);
-    system("Pause");
+        cal.BasicOp(num1, num2, charArr[1]);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Invalid Input" << '\n';
+    }
     
+    system("Pause");
+}
+
+
+/**
+ * @brief 
+ * 
+ */
+void option3(Calculator& cal){
+    cout << "\n ############ History ############" << endl;
+    cal.printHistory();
+    system("Pause");
 }
 
 int main(int argc, char** argv){
     int option = 0;   
+    Calculator calculator;
+
     while((option = menu()) != 4){
         // clear buffer before taking new line
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
-        // Declare the calculator class
-        Calculator calculator;
 
         switch(option){
             case 1:
@@ -75,6 +97,7 @@ int main(int argc, char** argv){
             case 2:
                 break;
             case 3:
+                option3(calculator);
                 break;
         }
 
