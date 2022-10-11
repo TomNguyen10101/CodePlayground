@@ -1,5 +1,5 @@
 CC = g++
-CFLAG = -g -std=c++11 -Wall 
+CFLAG = -std=c++14 -Wall 
 #BUNDLE_ZIP_NAME = Calculator.zip
 
 zipFile:

@@ -33,6 +33,13 @@ int menu(){
     return option;
 }
 
+/**
+ * @brief 
+ * 
+ * @param input 
+ * @param num1 
+ * @param num2 
+ */
 void stringParsing(string& input, double& num1, double& num2){
 
     // Remove all the spaces between the character
@@ -100,6 +107,8 @@ void option2(Calculator& cal){
 
     switch(option){
         case 1:
+            getline(cin, input);
+            cal.SinCosTan(input);
             break;
         case 2:
             cout << "Enter the operation: ";

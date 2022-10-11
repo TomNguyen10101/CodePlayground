@@ -1,12 +1,16 @@
 #include "Calculator.h"
 #include <iostream>
-#include <math.h>
 #include <string.h>
+#include <regex>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 using std::cout;
 using std::endl;
 using std::string;
 using std:: to_string;
+using std::regex_match;
 
 /**
  * @brief 
@@ -63,6 +67,75 @@ void Calculator::exponential(const double& x, const double& y){
     
     cout << x << "^" << y << " = " << result << endl;
 }
+
+bool stringParse(const string& input, string& method, double& numberValue){
+    std::regex alphabet("[A-Za-z]");
+    std::regex integer("[0-9]");
+
+    string numStr = "";
+
+    for(unsigned int i = 0; i < input.length(); i++){
+        string single = input.substr(i, 1);
+
+        if(regex_match(single, alphabet)){
+            method += single;
+        }
+
+        if(regex_match(single, integer)){
+            numStr += single;
+        }
+
+        if(single == "(" || single == ")"){
+            continue;
+        }
+    }
+
+    // By changing to lower case, to accept also upper case
+    std::transform(method.begin(), method.end(), method.begin(), ::tolower);
+    cout << method << endl;
+
+
+    if(method == "sin" || method == "cos" || method == "tan"){
+        try
+        {
+            numberValue = std::stod(numStr);
+            return true;
+        }
+        catch(const std::exception& e)
+        {
+            return false;
+        }
+    }
+
+    return false;
+}
+
+void Calculator::SinCosTan(string input){
+    string method = "";
+    double numberValue = 0;
+
+    bool inputValid = stringParse(input, method, numberValue);
+
+    cout << inputValid << endl;
+
+    if(inputValid){
+        double rad = numberValue * M_PI / 180; // Find the radian
+        double result = 0;
+
+        if(method == "sin")
+            result = sin(rad);
+        else if(method == "cos")
+            result = cos(rad);
+        else if(method == "tan")
+            result = tan(rad);
+
+        string stringResult = input + " = " + to_string(result);
+        inputs.push(stringResult);
+
+        cout << input << " = " << result << endl;    
+    }
+}
+
 
 /**
  * @brief 

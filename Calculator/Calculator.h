@@ -13,5 +13,6 @@ class Calculator{
         void BasicOp(double x, double y, char sign);
         void exponential(const double& x, const double& power);
         void PrintHistory();
+        void SinCosTan(std::string input);
 };
 #endif
