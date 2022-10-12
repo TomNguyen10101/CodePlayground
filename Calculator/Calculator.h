@@ -9,7 +9,6 @@ class Calculator{
         std::stack<std::string> inputs;
         
     public:
-        // Functions
         void BasicOp(double x, double y, char sign);
         void exponential(const double& x, const double& power);
         void PrintHistory();

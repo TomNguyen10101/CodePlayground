@@ -136,7 +136,6 @@ void Calculator::SinCosTan(string input){
     }
 }
 
-
 /**
  * @brief 
  * 
